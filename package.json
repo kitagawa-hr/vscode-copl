@@ -1,6 +1,10 @@
 {
     "name": "vscode-copl",
     "publisher": "kitagawa",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/kitagawa-hr/vscode-copl"
+    },
     "displayName": "vscode-copl",
     "description": "language support for copl",
     "version": "0.0.1",
@@ -10,17 +14,42 @@
     "categories": [
         "Programming Languages"
     ],
+    "activationEvents": [
+        "*"
+    ],
+    "main": "./out/extension.js",
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "lint": "tslint -p ./",
+        "watch": "tsc -watch -p ./"
+    },
+    "devDependencies": {
+        "@types/node": "^10.12.18",
+        "tslint": "^5.16.0",
+        "typescript": "^3.5.1",
+        "@types/vscode": "^1.32.0"
+    },
     "contributes": {
-        "languages": [{
-            "id": "copl",
-            "aliases": ["copl", "copl"],
-            "extensions": [".copl"],
-            "configuration": "./language-configuration.json"
-        }],
-        "grammars": [{
-            "language": "copl",
-            "scopeName": "source.copl",
-            "path": "./syntaxes/copl.tmLanguage.json"
-        }]
+        "languages": [
+            {
+                "id": "copl",
+                "aliases": [
+                    "copl",
+                    "copl"
+                ],
+                "extensions": [
+                    ".copl"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "copl",
+                "scopeName": "source.copl",
+                "path": "./syntaxes/copl.tmLanguage.json"
+            }
+        ]
     }
 }

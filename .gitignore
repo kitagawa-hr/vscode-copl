@@ -5,4 +5,5 @@ Thumbs.db
 */out/
 */.vs/
 *.vsix
-
+node_modules/*
+out/*
