@@ -1,0 +1,26 @@
+{
+    "name": "vscode-copl",
+    "publisher": "kitagawa",
+    "displayName": "vscode-copl",
+    "description": "language support for copl",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.38.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "copl",
+            "aliases": ["copl", "copl"],
+            "extensions": [".copl"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "copl",
+            "scopeName": "source.copl",
+            "path": "./syntaxes/copl.tmLanguage.json"
+        }]
+    }
+}

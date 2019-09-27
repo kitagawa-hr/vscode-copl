@@ -1,0 +1,85 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "copl",
+    "patterns": [{
+            "include": "#keywords"
+        },
+        {
+            "include": "#constants"
+        },
+        {
+            "include": "#comments"
+        },
+        {
+            "include": "#expressions"
+        }
+    ],
+    "repository": {
+        "keywords": {
+            "patterns": [{
+                    "name": "keyword.control.copl",
+                    "match": "\\b(by|def|do|error|fun|in|let|letcc|match|rec|skip|while|with)\\b"
+                },
+                {
+                    "name": "keyword.operator.arithmetic.copl",
+                    "match": "(\\+|-|\\*|<|=)[^-=]"
+                },
+                {
+                    "name": "keyword.operator.signature.copl",
+                    "match": "(\\?|\\!|/[^/]|->|--->|-d->|-\\*->|={1,2}>|>>|:=|::)"
+                },
+                {
+                    "name": "keyword.other.expression.copl",
+                    "match": "\\b(plus|minus|times|less than|is|evalto|matches|when|not|changes|to)\\b"
+                },
+                {
+                    "name": "support.type.copl",
+                    "match": "\\b(bool|int|list|ref)\\b"
+                },
+                {
+                    "name": "keyword.other.bool.copl",
+                    "match": "\\b(true|false)\\b"
+                },
+                {
+                    "name": "keyword.other.envexp_separator.copl",
+                    "match": "\\|-"
+                }
+            ]
+        },
+        "constants": {
+            "patterns": [{
+                    "name": "constant.language.rule.copl",
+                    "match": "\\b[A-Z]+\\-[A-Z]{1,1}[a-z0-9]+"
+                },
+                {
+                    "name": "constant.numeric.integer.copl",
+                    "match": "\\b[0-9]+\\b"
+                },
+                {
+                    "name": "constant.language.bool.copl",
+                    "match": "\\b(true|false)\\b"
+                }
+            ]
+        },
+        "comments": {
+            "patterns": [{
+                    "name": "comment.line.double-slash.copl",
+                    "begin": "//",
+                    "end": "\\n"
+                },
+                {
+                    "name": "comment.block.copl",
+                    "begin": "\\(\\*",
+                    "end": "\\*\\)"
+                }
+            ]
+        },
+        "expressions": {
+            "patterns": [{
+                "name": "variable.parameter.copl",
+                "match": "(\\b_\\b)|((?:(?!\\b(?:and|\\*|:|,|@|changes|else|=|false|\\.|fun|-|if|in|\\{|\\(|\\[|<|let|match|matches|\"|rec|\\\\|\\}|\\)|\\]|;|to|then|~|true|\\||when|while|with)\\b(?:[^']|$))\\b(?=[[:lower:]_])[[:alpha:]_][[:word:]']*))"
+            }]
+        }
+    },
+    "scopeName": "source.copl"
+}

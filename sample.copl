@@ -1,0 +1,12 @@
+|- let twice = fun f -> fun x -> f (f x) in twice (fun x -> x * x) 2 evalto 16 by E-Let{
+  |- fun f -> fun x -> f (f x) evalto ()[fun f -> fun x -> f (f x)] by E-Fun{};
+  twice = ()[fun f -> fun x -> f (f x)] |- twice (fun x -> x * x) 2 evalto 16 by E-App{
+     twice = ()[fun f -> fun x -> f (f x)] |- twice (fun x -> x * x) evalto (f = ()[fun x -> x * x])[fun f -> fun x -> f (f x)] by E-App{
+       twice = ()[fun f -> fun x -> f (f x)] |- twice evalto ()[fun f -> fun x -> f (f x)] by E-Var1{};
+       twice = ()[fun f -> fun x -> f (f x)] |- (fun x -> x * x) evalto ()[fun x -> x * x] by E-Fun{};
+       f = ()[fun x -> x * x] |- fun x -> f (f x) evalto (f = ()[fun x -> x * x])[fun f -> x -> f (f x)] by E-Fun{};
+     };
+     twice = fun f -> fun x -> f (f x) evalto ()[fun f -> fun x -> f (f x)] |-   
+     f = ()[fun f -> fun x -> f (f x)] |- fun x -> f (f x) evalto (f = ()[fun f -> fun x -> f (f x)])[fun x -> f (f x)] by E-Fun{};
+  }
+}
