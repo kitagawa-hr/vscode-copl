@@ -2,71 +2,279 @@
  * Copyright (C) Microsoft Corporation. All rights reserved.
  *--------------------------------------------------------*/
 
-import * as vscode from 'vscode';
+import * as vscode from "vscode";
 
 export function activate(context: vscode.ExtensionContext) {
+  let keywordProvider = vscode.languages.registerCompletionItemProvider(
+    "copl",
+    {
+      provideCompletionItems(
+        document: vscode.TextDocument,
+        position: vscode.Position,
+        token: vscode.CancellationToken,
+        context: vscode.CompletionContext
+      ) {
+        let keywords = [
+          "by",
+          "def",
+          "do",
+          "error",
+          "fun",
+          "in",
+          "let",
+          "letcc",
+          "match",
+          "rec",
+          "skip",
+          "while",
+          "with",
+          "plus",
+          "minus",
+          "times",
+          "less than",
+          "is",
+          "evalto",
+          "matches",
+          "when",
+          "not",
+          "changes",
+          "to",
+          "bool",
+          "int",
+          "list",
+          "ref",
+          "true",
+          "false"
+        ];
+        return keywords.map((keyword: string) => {
+          return new vscode.CompletionItem(keyword);
+        });
+      }
+    }
+  );
 
-	let provider1 = vscode.languages.registerCompletionItemProvider('copl', {
+  const ruleProvider = vscode.languages.registerCompletionItemProvider(
+    "copl",
+    {
+      provideCompletionItems(
+        document: vscode.TextDocument,
+        position: vscode.Position
+      ) {
+        let linePrefix = document
+          .lineAt(position)
+          .text.substr(0, position.character);
+        if (!linePrefix.endsWith("by ")) {
+          return undefined;
+        }
+        let rules = [
+          "A-Const",
+          "A-Minus",
+          "A-Plus",
+          "A-Times",
+          "A-Var",
+          "B-And",
+          "B-Const",
+          "B-Eq",
+          "B-Le",
+          "B-Lt",
+          "B-Minus",
+          "B-Not",
+          "B-Or",
+          "B-Plus",
+          "B-Times",
+          "C-Assign",
+          "C-Cons",
+          "C-EvalArg",
+          "C-EvalConsR",
+          "C-EvalFun",
+          "C-EvalFunC",
+          "C-EvalFunR",
+          "C-EvalR",
+          "C-IfF",
+          "C-IfT",
+          "C-LetBody",
+          "C-Lt",
+          "C-MatchCons",
+          "C-MatchNil",
+          "C-Minus",
+          "C-Plus",
+          "C-Ret",
+          "C-RetCont",
+          "C-RetRet",
+          "C-Seq",
+          "C-Skip",
+          "C-Times",
+          "C-WhileF",
+          "C-WhileT",
+          "DR-Plus",
+          "DR-PlusL",
+          "DR-PlusR",
+          "DR-Times",
+          "DR-TimesL",
+          "DR-TimesR",
+          "E-App",
+          "E-AppErr1",
+          "E-AppErr2",
+          "E-AppErr3",
+          "E-AppErr4",
+          "E-AppErr5",
+          "E-AppRec",
+          "E-Assign",
+          "E-BinOp",
+          "E-Bool",
+          "E-Cnstr0",
+          "E-Cnstr1",
+          "E-Cnstr2",
+          "E-Cnstr3",
+          "E-Cons",
+          "E-ConsErr1",
+          "E-ConsErr2",
+          "E-Const",
+          "E-Deref",
+          "E-Fun",
+          "E-If",
+          "E-IfErr1",
+          "E-IfErr2",
+          "E-IfErr3",
+          "E-IfF",
+          "E-IfT",
+          "E-Int",
+          "E-Let",
+          "E-LetCc",
+          "E-LetErr1",
+          "E-LetErr2",
+          "E-LetRec",
+          "E-LetRecErr",
+          "E-Lt",
+          "E-LtErr1",
+          "E-LtErr2",
+          "E-Match",
+          "E-MatchCons",
+          "E-MatchErr1",
+          "E-MatchErr2",
+          "E-MatchErr3",
+          "E-MatchM1",
+          "E-MatchM2",
+          "E-MatchN",
+          "E-MatchNil",
+          "E-Minus",
+          "E-MinusErr1",
+          "E-MinusErr2",
+          "E-Nil",
+          "E-Plus",
+          "E-PlusErr1",
+          "E-PlusErr2",
+          "E-Ref",
+          "E-Reset",
+          "E-Shift",
+          "E-Times",
+          "E-TimesErr1",
+          "E-TimesErr2",
+          "E-Var",
+          "E-Var1",
+          "E-Var2",
+          "E-VarErr",
+          "L-Succ",
+          "L-SuccR",
+          "L-SuccSucc",
+          "L-Trans",
+          "L-Zero",
+          "M-Cnstr0",
+          "M-Cnstr1",
+          "M-Cnstr2",
+          "M-Cnstr3",
+          "M-Cons",
+          "M-Nil",
+          "M-Var",
+          "M-Wild",
+          "MR-Multi",
+          "MR-One",
+          "MR-Zero",
+          "NM-BoolCons",
+          "NM-BoolNil",
+          "NM-Cnstr00H",
+          "NM-Cnstr01",
+          "NM-Cnstr02",
+          "NM-Cnstr03",
+          "NM-Cnstr10",
+          "NM-Cnstr11A",
+          "NM-Cnstr11H",
+          "NM-Cnstr12",
+          "NM-Cnstr13",
+          "NM-Cnstr20",
+          "NM-Cnstr21",
+          "NM-Cnstr22H",
+          "NM-Cnstr22L",
+          "NM-Cnstr22R",
+          "NM-Cnstr23",
+          "NM-Cnstr30",
+          "NM-Cnstr31",
+          "NM-Cnstr32",
+          "NM-Cnstr33H",
+          "NM-Cnstr33L",
+          "NM-Cnstr33M",
+          "NM-Cnstr33R",
+          "NM-ConsConsL",
+          "NM-ConsConsR",
+          "NM-ConsNil",
+          "NM-FunCons",
+          "NM-FunNil",
+          "NM-IntCons",
+          "NM-IntNil",
+          "NM-NilCons",
+          "NM-RecCons",
+          "NM-RecNil",
+          "P-Succ",
+          "P-Zero",
+          "R-Plus",
+          "R-PlusL",
+          "R-PlusR",
+          "R-Times",
+          "R-TimesL",
+          "R-TimesR",
+          "T-Abs",
+          "T-App",
+          "T-Bool",
+          "T-Cnstr0",
+          "T-Cnstr1",
+          "T-Cnstr2",
+          "T-Cnstr3",
+          "T-Cons",
+          "T-Fun",
+          "T-If",
+          "T-Int",
+          "T-Let",
+          "T-LetRec",
+          "T-Lt",
+          "T-Match",
+          "T-MatchLast",
+          "T-MatchMore",
+          "T-Minus",
+          "T-Nil",
+          "T-Plus",
+          "T-Succ",
+          "T-Times",
+          "T-Var",
+          "T-Var1",
+          "T-Var2",
+          "T-Zero",
+          "TP-Cnstr0",
+          "TP-Cnstr1",
+          "TP-Cnstr2",
+          "TP-Cnstr3",
+          "TP-Var",
+          "TP-Wild"
+        ];
+        return rules.map((rule: string) => {
+          return new vscode.CompletionItem(
+            rule,
+            vscode.CompletionItemKind.Enum
+          );
+        });
+      }
+    },
+    " " // triggered whenever a '.' is being typed
+  );
 
-		provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
-
-			// a simple completion item which inserts `Hello World!`
-			const simpleCompletion = new vscode.CompletionItem('Hello World!');
-
-			// a completion item that inserts its text as snippet,
-			// the `insertText`-property is a `SnippetString` which will be
-			// honored by the editor.
-			const snippetCompletion = new vscode.CompletionItem('Good part of the day');
-			snippetCompletion.insertText = new vscode.SnippetString('Good ${1|morning,afternoon,evening|}. It is ${1}, right?');
-			snippetCompletion.documentation = new vscode.MarkdownString("Inserts a snippet that lets you select the _appropriate_ part of the day for your greeting.");
-
-			// a completion item that can be accepted by a commit character,
-			// the `commitCharacters`-property is set which means that the completion will
-			// be inserted and then the character will be typed.
-			const commitCharacterCompletion = new vscode.CompletionItem('console');
-			commitCharacterCompletion.commitCharacters = ['.'];
-			commitCharacterCompletion.documentation = new vscode.MarkdownString('Press `.` to get `console.`');
-
-			// a completion item that retriggers IntelliSense when being accepted,
-			// the `command`-property is set which the editor will execute after 
-			// completion has been inserted. Also, the `insertText` is set so that 
-			// a space is inserted after `new`
-			const commandCompletion = new vscode.CompletionItem('new');
-			commandCompletion.kind = vscode.CompletionItemKind.Keyword;
-			commandCompletion.insertText = 'new ';
-			commandCompletion.command = { command: 'editor.action.triggerSuggest', title: 'Re-trigger completions...' };
-
-			// return all completion items as array
-			return [
-				simpleCompletion,
-				snippetCompletion,
-				commitCharacterCompletion,
-				commandCompletion
-			];
-		}
-	});
-
-	const provider2 = vscode.languages.registerCompletionItemProvider(
-		'copl',
-		{
-			provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
-
-				// get all text until the `position` and check if it reads `console.`
-				// and if so then complete if `log`, `warn`, and `error`
-				let linePrefix = document.lineAt(position).text.substr(0, position.character);
-				if (!linePrefix.endsWith('console.')) {
-					return undefined;
-				}
-
-				return [
-					new vscode.CompletionItem('log', vscode.CompletionItemKind.Method),
-					new vscode.CompletionItem('warn', vscode.CompletionItemKind.Method),
-					new vscode.CompletionItem('error', vscode.CompletionItemKind.Method),
-				];
-			}
-		},
-		'.' // triggered whenever a '.' is being typed
-	);
-
-	context.subscriptions.push(provider1, provider2);
+  context.subscriptions.push(keywordProvider, ruleProvider);
 }
