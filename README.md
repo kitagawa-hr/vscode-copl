@@ -7,3 +7,7 @@ VSCode extension for the book "Concepts of Programming Languages"(CoPL)
 ## Supported Features
 
 - SyntaxHighlight
+
+- Completion (Keywords and Rules)
+ 
+
