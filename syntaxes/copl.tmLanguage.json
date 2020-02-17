@@ -49,7 +49,7 @@
                 },
                 {
                     "name": "constant.numeric.integer.copl",
-                    "match": "\\-?b[0-9]+\\b"
+                    "match": "\\b-?[0-9]+\\b"
                 },
                 {
                     "name": "constant.language.bool.copl",
