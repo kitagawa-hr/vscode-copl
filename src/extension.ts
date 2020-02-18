@@ -78,6 +78,7 @@ export function activate(context: vscode.ExtensionContext) {
           "B-Le",
           "B-Lt",
           "B-Minus",
+          "B-Mult",
           "B-Not",
           "B-Or",
           "B-Plus",
@@ -172,6 +173,7 @@ export function activate(context: vscode.ExtensionContext) {
           "E-MinusErr2",
           "E-MinusErrorL",
           "E-MinusErrorR",
+          "E-Mult",
           "E-Nil",
           "E-Plus",
           "E-PlusBoolL",
@@ -270,6 +272,7 @@ export function activate(context: vscode.ExtensionContext) {
           "T-MatchLast",
           "T-MatchMore",
           "T-Minus",
+          "T-Mult",
           "T-Nil",
           "T-Plus",
           "T-Succ",
@@ -283,7 +286,20 @@ export function activate(context: vscode.ExtensionContext) {
           "TP-Cnstr2",
           "TP-Cnstr3",
           "TP-Var",
-          "TP-Wild"
+          "TP-Wild",
+          "Tr-App",
+          "Tr-Bool",
+          "Tr-Fun",
+          "Tr-If",
+          "Tr-Int",
+          "Tr-Let",
+          "Tr-LetRec",
+          "Tr-Lt",
+          "Tr-Minus",
+          "Tr-Plus",
+          "Tr-Times",
+          "Tr-Var1",
+          "Tr-Var2"
         ];
         return rules.map((rule: string) => {
           return new vscode.CompletionItem(
